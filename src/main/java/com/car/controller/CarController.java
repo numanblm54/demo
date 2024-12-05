@@ -4,9 +4,11 @@ package com.car.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import com.car.dto.CarColor;
 import com.car.model.Car;
 import com.car.service.CarService;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,5 +54,17 @@ public class CarController {
     @DeleteMapping("/{id}")
     public void deleteCar(@PathVariable Long id) {
         carService.deleteCar(id);
+    }
+
+    // Get all cars
+    @GetMapping("/price")
+    public List<Car> getCarsByPrice(@RequestParam BigDecimal price) {
+    	return carService.getCarByPriceGreaterThanEqual(price);
+    }
+    
+    // Get all cars
+    @GetMapping("/color")
+    public List<Car> getCarsByColor(@RequestBody CarColor carColor) {
+    	return carService.getCarByColor(carColor.getColor());
     }
 }

@@ -1,5 +1,7 @@
 package com.car.model;
 
+import java.math.BigDecimal;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,7 +34,7 @@ public class Car {
 	 @Column(name="color")
 	 private String color;
 	 
-	 @Column(name="price")
-	 private double price;
+	 @Column(precision = 10, scale = 2)
+	 private BigDecimal price;
 
 }
