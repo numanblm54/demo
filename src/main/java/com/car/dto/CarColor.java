@@ -14,3 +14,5 @@ import lombok.ToString;
 public class CarColor {
 	private String color;
 }
+
+

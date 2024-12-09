@@ -2,6 +2,7 @@ package com.car.model;
 
 import java.sql.Date;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -36,7 +37,7 @@ public class Person {
     @Column(name="birth_date")
     private Date birthDate;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Address address; // One-to-one relationship with Address
 
 
