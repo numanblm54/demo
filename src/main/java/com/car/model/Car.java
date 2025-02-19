@@ -18,7 +18,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class Car {
-	 @Id
+
+	@Id
 	 @GeneratedValue(strategy = GenerationType.IDENTITY)
 	 private Long id;
 	 
@@ -36,5 +37,14 @@ public class Car {
 	 
 	 @Column(precision = 10, scale = 2)
 	 private BigDecimal price;
+	 
+	 
+	 public Car(String brand, String model, int year, String color, int price) {
+	        this.brand = brand;
+	        this.model = model;
+	        this.year = year;
+	        this.color = color;
+	        this.price = new BigDecimal(price);
+	    }
 
 }
