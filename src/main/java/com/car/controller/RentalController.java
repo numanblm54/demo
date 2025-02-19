@@ -1,26 +1,21 @@
-package com.car.rental_controller;
+package com.car.controller;
 
-
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import com.car.dto.RentalDTO;
 import com.car.model.Rental;
-import com.car.rental_service.RentalService;
-
+import com.car.service.RentalService;
 
 
 @RestController
-@RequestMapping("/api/rentals")
+@RequestMapping("api/rentals")
+
 public class RentalController {
-    @Autowired
+	
+	@Autowired
     private RentalService rentalService;
 
     // Kiralama oluştur
@@ -46,7 +41,20 @@ public class RentalController {
     public Rental updateRental(@PathVariable long id, @RequestBody Rental rentalDetails) {
         return rentalService.updateRental(id, rentalDetails);
     }
-
-
+    
+    @GetMapping("/rentalWithPath/{personID}")
+    public List<RentalDTO> getRentalInformation(@PathVariable long personID) {
+        return rentalService.getRentalInformation(String.valueOf(personID));
+    } 
+    
+    @GetMapping("/withParam")
+    public List<RentalDTO> getRentalInformations(@RequestParam long  personID) {
+        return rentalService.getRentalInformation(String.valueOf(personID));
+    }
+    
+    @GetMapping("/withParamCarAndPerson")
+    public List<RentalDTO> getRentalInformations(@RequestParam long  personID, @RequestParam String carBrand) {
+        return rentalService.getRentalInformations(String.valueOf(personID),carBrand);
+    }
 
 }

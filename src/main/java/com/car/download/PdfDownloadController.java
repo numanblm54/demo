@@ -1,5 +1,6 @@
 package com.car.download;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -10,12 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class PdfDownloadController {
 
-    private final IDocumentService documentService;
+	@Autowired
+    private IDocumentService documentService;
 
-    // IDocumentService üzerinden bağımlılığı alıyoruz
-    public PdfDownloadController(IDocumentService documentService) {
-        this.documentService = documentService;
-    }
 
     @GetMapping("/pdf/download")
     public ResponseEntity<byte[]> downloadPdf() {

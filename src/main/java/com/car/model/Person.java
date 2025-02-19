@@ -25,6 +25,9 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
+    @Column(name="person_id")
+    private String personID;
+    
     @Column(name="first_name")
     private String firstName;
     

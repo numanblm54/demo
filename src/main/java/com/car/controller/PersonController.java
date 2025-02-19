@@ -1,4 +1,4 @@
-package com.car.person_controller;
+package com.car.controller;
 
 import java.util.List;
 import java.util.Optional;
@@ -7,16 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.*;
 
-import com.car.model.Car;
+import com.car.dto.UserMailDTO;
 import com.car.model.Person;
-import com.car.person_service.PersonService;
+import com.car.service.PersonService;
 
 
 
 @RestController
-@RequestMapping("/api/persons")  // /persons URL yolunda işlem yapacak
-public class PersonController {
+@RequestMapping("/api/persons")
 
+public class PersonController {
 	@Autowired
     private PersonService personService;
 	
@@ -33,30 +33,27 @@ public class PersonController {
 	 @GetMapping("/id")
 	 public Optional<Person> getPersonParamById(@RequestParam Long id) {
 	     return personService.getPersonById(id);
-	    } 
+	  } 
 	 
-	    @PostMapping("/create-person")
-	    public Person createPerson(@RequestBody Person person) {
-	        return personService.savePerson(person);
-	    }
+	 @PostMapping("/create-person")
+	 public Person createPerson(@RequestBody Person person) {
+	     return personService.savePerson(person);
+	  }
 	    
 	    @PutMapping("/{id}")
-	    public Person updateperson(@PathVariable Long id, @RequestBody Person person) {
-	        person.setId(id);
-	        return personService.savePerson(person);
-	    }
+	  public Person updateperson(@PathVariable Long id, @RequestBody Person person) {
+	      person.setId(id);
+	      return personService.savePerson(person);
+	   }
 	    
 	    @DeleteMapping("/{id}")
-	    public void deletePerson(@PathVariable Long id) {
-	        personService.deletePerson(id);
-	    }
+	  public void deletePerson(@PathVariable Long id) {
+	      personService.deletePerson(id);
+	   }
 	    
-	   
-
+	 @GetMapping("/allMail")
+	  public List<UserMailDTO> getAllMails() {
+		 return personService.getAllMails();
+	 }
 
 }
-
-
-
-	
-

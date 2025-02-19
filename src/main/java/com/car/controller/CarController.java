@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.car.dto.CarColor;
+import com.car.dto.CarDTO;
 import com.car.model.Car;
 import com.car.service.CarService;
 
@@ -67,6 +68,11 @@ public class CarController {
     public List<Car> getCarsByColor(@RequestBody CarColor carColor) {
     	return carService.getCarByColor(carColor.getColor());
     }
+    
+    @GetMapping("/car/information")
+    public List<CarDTO> getCarInformation(){
+	return carService.getCarInformation();
+}
     
     
 }

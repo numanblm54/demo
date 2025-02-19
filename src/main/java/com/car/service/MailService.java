@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.car.model.Car;
 import com.car.model.Person;
 import com.car.model.Rental;
-import com.car.person_repository.PersonRepository;
-import com.car.rental_repository.RentalRepository;
+import com.car.repository.PersonRepository;
+import com.car.repository.RentalRepository;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;

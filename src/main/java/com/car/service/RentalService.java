@@ -1,20 +1,25 @@
-package com.car.rental_service;
-
-import java.time.temporal.ChronoUnit;
+package com.car.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.car.dto.RentalDTO;
 import com.car.model.Car;
 import com.car.model.Person;
 import com.car.model.Rental;
-import com.car.person_repository.PersonRepository;
-import com.car.rental_repository.RentalRepository;
+import com.car.repository.PersonRepository;
+import com.car.repository.RentalRepository;
 import com.car.repository.CarRepository;
 
+import java.time.temporal.ChronoUnit;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
+
 public class RentalService {
-    @Autowired
+	
+	@Autowired
     private RentalRepository rentalRepository;
 
     @Autowired
@@ -83,10 +88,29 @@ public class RentalService {
 
         return rentalRepository.save(rental);
     }
-
-	
-
+    
+    public List<RentalDTO> getRentalInformation(final String personID ){
+    	Person person = personRepository.findPersonByPersonID(personID);
+    	return rentalRepository.findRentalsByPerson(person).stream()
+    			.map(rental -> new RentalDTO(rental.getPerson().getFirstName(),
+    					rental.getPerson().getLastName(),
+    					rental.getPerson().getAddress().getCity(),
+    					rental.getCar().getBrand(),
+    					rental.getCar().getModel()))
+    	         .collect(Collectors.toList());
+ 
+    }
+    
+    public List<RentalDTO> getRentalInformations(final String personID ,final String carBrand){
+    	Person person = personRepository.findPersonByPersonID(personID);
+    	List<Car> car = carRepository.getCarByBrand(carBrand);
+    	return rentalRepository.findByPersonAndCarIn(person,car).stream()
+    			.map(rental -> new RentalDTO(rental.getPerson().getFirstName(),
+    					rental.getPerson().getLastName(),
+    					rental.getPerson().getAddress().getCity(),
+    					rental.getCar().getBrand(),
+    					rental.getCar().getModel()))
+    	         .collect(Collectors.toList());
+ 
+    }
 }
-
-
-
